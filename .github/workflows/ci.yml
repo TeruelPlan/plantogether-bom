@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      packages: read
 
     steps:
       - uses: actions/checkout@v4
@@ -19,10 +20,28 @@ jobs:
         with:
           java-version: '21'
           distribution: temurin
-          cache: maven
+          server-id: github-packages
+          server-username: GITHUB_ACTOR
+          server-password: PACKAGES_TOKEN
 
-      - name: Validate parent POM
-        run: mvn --batch-mode -N validate
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2/repository
+            !~/.m2/repository/com/plantogether
+          key: m2-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            m2-${{ runner.os }}-
 
-      - name: Install parent POM to local repo
-        run: mvn --batch-mode -N install -DskipTests
+      - name: Validate BOM
+        run: mvn -s .settings.xml --batch-mode -N validate
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+
+      - name: Install BOM to local repo
+        run: mvn -s .settings.xml --batch-mode -N install -DskipTests
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
