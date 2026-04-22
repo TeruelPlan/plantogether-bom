@@ -13,8 +13,8 @@
     <description>Bill of Materials — centralizes internal library versions for all PlanTogether microservices</description>
 
     <properties>
-        <plantogether-common.version>1.8.0-SNAPSHOT</plantogether-common.version>
-        <plantogether-proto.version>1.1.0-SNAPSHOT</plantogether-proto.version>
+        <plantogether-common.version>1.8.1</plantogether-common.version>
+        <plantogether-proto.version>1.1.0</plantogether-proto.version>
     </properties>
 
     <dependencyManagement>
