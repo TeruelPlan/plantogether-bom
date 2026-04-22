@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.plantogether</groupId>
+    <artifactId>plantogether-bom</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>plantogether-bom</name>
+    <description>Bill of Materials — centralizes internal library versions for all PlanTogether microservices</description>
+
+    <properties>
+        <plantogether-common.version>1.8.0-SNAPSHOT</plantogether-common.version>
+        <plantogether-proto.version>1.1.0-SNAPSHOT</plantogether-proto.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.plantogether</groupId>
+                <artifactId>plantogether-common</artifactId>
+                <version>${plantogether-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.plantogether</groupId>
+                <artifactId>plantogether-common</artifactId>
+                <version>${plantogether-common.version}</version>
+                <classifier>tests</classifier>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.plantogether</groupId>
+                <artifactId>plantogether-proto</artifactId>
+                <version>${plantogether-proto.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>github-bom</id>
+            <name>GitHub Packages — bom</name>
+            <url>https://maven.pkg.github.com/TeruelPlan/plantogether-bom</url>
+        </repository>
+    </distributionManagement>
+</project>
