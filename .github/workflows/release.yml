@@ -22,10 +22,19 @@ jobs:
         with:
           java-version: '21'
           distribution: temurin
-          cache: maven
-          server-id: github
+          server-id: github-packages
           server-username: GITHUB_ACTOR
-          server-password: GITHUB_TOKEN
+          server-password: PACKAGES_TOKEN
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2/repository
+            !~/.m2/repository/com/plantogether
+          key: m2-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            m2-${{ runner.os }}-
 
       - name: Extract version from tag
         id: version
@@ -43,13 +52,13 @@ jobs:
       - name: Deploy to GitHub Packages
         run: mvn --batch-mode -s .settings.xml deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: "plantogether-parent ${{ github.ref_name }}"
+          name: "plantogether-bom ${{ github.ref_name }}"
           generate_release_notes: true
 
       - name: Bump to next snapshot version
