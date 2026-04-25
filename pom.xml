@@ -12,6 +12,13 @@
     <name>plantogether-bom</name>
     <description>Bill of Materials — centralizes internal library versions for all PlanTogether microservices</description>
 
+    <scm>
+        <connection>scm:git:https://github.com/TeruelPlan/plantogether-bom.git</connection>
+        <developerConnection>scm:git:https://github.com/TeruelPlan/plantogether-bom.git</developerConnection>
+        <url>https://github.com/TeruelPlan/plantogether-bom</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <plantogether-common.version>1.10.0</plantogether-common.version>
         <plantogether-proto.version>1.2.0</plantogether-proto.version>
