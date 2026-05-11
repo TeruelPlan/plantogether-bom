@@ -18,7 +18,7 @@
     </scm>
 
     <properties>
-        <plantogether-common.version>1.13.0</plantogether-common.version>
+        <plantogether-common.version>2.0.0</plantogether-common.version>
         <plantogether-proto.version>2.0.0</plantogether-proto.version>
     </properties>
 
